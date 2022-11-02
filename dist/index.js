@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv = require("dotenv");
+dotenv.config();
 const App_1 = require("./App");
 const port = process.env.PORT || 3000;
 App_1.default.listen(port, (err) => {
