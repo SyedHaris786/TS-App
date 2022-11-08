@@ -1,4 +1,6 @@
 import * as express from 'express'
+import { baseRoutController } from './controller/auth'
+import {products } from './controller/products'
 
 class App {
   public express
@@ -6,17 +8,21 @@ class App {
   constructor () {
     this.express = express()
     this.mountRoutes()
+    // this.mountMiddleware()
   }
 
   private mountRoutes (): void {
     const router = express.Router()
-    router.get('/', (req, res) => {
-      res.json({
-        message: 'Hello World!'
-      })
-    })
-    this.express.use('/', router)
-  }
-}
 
+   
+router.route('/').get(baseRoutController)
+
+
+router.route('/products').get(products)
+   
+
+    this.express.use('/', router) 
+  }
+
+}
 export default new App().express
