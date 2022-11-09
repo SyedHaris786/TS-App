@@ -13,16 +13,17 @@ const dotenv = require("dotenv");
 dotenv.config();
 const express = require('express');
 const pool = require("./scripts/connectdb");
-const App_1 = require("./App");
+const app = express();
 const port = process.env.PORT || 3000;
 const server = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield pool.query('SELECT NOW();');
-    yield pool.end();
-    App_1.default.listen(port, (err) => {
+    let a = yield pool.query('SELECT NOW();');
+    console.log("DB connected at: " + a.rows[0].now);
+    app.listen(port, (err) => {
         if (err) {
             return console.log(err);
         }
-        return console.log(`server is listening on ${port}`);
+        return console.log(`Server is listening on ${port}`);
     });
 });
+server();
 //# sourceMappingURL=index.js.map

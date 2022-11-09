@@ -5,7 +5,4 @@ export const products = (req,res) => {
  .then(
     (data) => 
     res.json(data.rows));
-
-
 }
-

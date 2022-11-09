@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const auth_1 = require("./controller/auth");
+const products_1 = require("./controller/products");
 class App {
     constructor() {
         this.express = express();
@@ -9,12 +11,8 @@ class App {
     }
     mountRoutes() {
         const router = express.Router();
-        router.get('/', (req, res) => {
-            res.json("Hello /");
-        });
-        router.get('/hello', (req, res) => {
-            res.json("you yes you ");
-        });
+        router.route('/').get(auth_1.baseRoutController);
+        router.route('/products').get(products_1.products);
         this.express.use('/', router);
     }
 }
