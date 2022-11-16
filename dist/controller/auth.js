@@ -1,19 +1,27 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.jwtValidation = exports.jwtGenerate = exports.baseRoutController = void 0;
-const baseRoutController = (req, res) => {
-    res.json({
-        message: 'Hello World!'
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-exports.baseRoutController = baseRoutController;
-//  Single responsibility principle
-const jwtGenerate = (req, res) => {
-    //Only code here for jwt token creation will be written here otherwise it will break single responsibility principle
-};
-exports.jwtGenerate = jwtGenerate;
-const jwtValidation = (req, res) => {
-    // Only validation of jwt token will be present here 
-};
-exports.jwtValidation = jwtValidation;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.auth = void 0;
+const { verify } = require("../repo/auth");
+const bcrypt = require('bcrypt');
+const auth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    try {
+        console.log('Auth', { email, password });
+        yield verify(email, password);
+        res.send('done');
+    }
+    catch (error) {
+        console.error('Auth', { error });
+    }
+});
+exports.auth = auth;
 //# sourceMappingURL=auth.js.map

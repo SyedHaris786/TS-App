@@ -1,13 +1,14 @@
 import * as express from 'express'
 
-import { baseRoutController } from '../controller/auth'
-import {products } from '../controller/products'
+
+import { product, allproducts } from '../controller/products'
 
 const router = express.Router();
 
-   
-router.route('/').get(baseRoutController)
-router.route('/products').get(products)
+
+
+router.route('/product/:id').get(product)
+router.route('/products').get(allproducts)
 
 
 module.exports = router
