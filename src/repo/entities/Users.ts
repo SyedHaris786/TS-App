@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -11,7 +12,7 @@ import { Orders } from "./Orders";
 @Index("users_pkey", ["userId"], { unique: true })
 @Index("users_user_id_key", ["userId"], { unique: true })
 @Entity("users", { schema: "public" })
-export class Users {
+export class Users extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "bigint", name: "user_id" })
   userId: string;
 
@@ -31,11 +32,9 @@ export class Users {
   age: number | null;
 
   @Column("character varying", {
-    name: "phone_number",
-    nullable: true,
-    length: 12,
+    name: "phone_number", length: 12
   })
-  phoneNumber: string | null;
+  phone_number: string;
 
   @OneToMany(() => Orders, (orders) => orders.user)
   orders: Orders[];

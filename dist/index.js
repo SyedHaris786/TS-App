@@ -38,9 +38,11 @@ const express = require('express');
 const app = express();
 const { main } = require("./repo/connectdb");
 const products = require('./route/products');
+const auth = require('./route/register');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/v1', products);
+app.use('/api/v1', auth);
 const port = process.env.PORT || 3000;
 const server = () => __awaiter(void 0, void 0, void 0, function* () {
     yield main();

@@ -10,7 +10,7 @@ const { main } = require("./repo/connectdb")
 
 //Routes Import
 const products = require('./route/products');
-// const auth = require('./route/auth')
+const auth = require('./route/register')
 
 
 //Json Middleware
@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/v1', products);
-// app.use('/api/v1',auth);
+app.use('/api/v1', auth);
 
 
 

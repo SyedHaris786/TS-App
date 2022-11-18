@@ -9,26 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.auth = void 0;
-const { verify } = require("../repo/auth");
-const bcrypt = require('bcrypt');
-const auth_1 = require("../repo/auth");
-const auth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password, phone_number } = req.body;
-    console.log(req.body);
-    try {
-        const added = yield (0, auth_1.register)({
-            username,
-            email,
-            password,
-            phone_number
-        });
-        res.json({ "User added successfully": added });
-    }
-    catch (err) {
-        console.log(err.detail);
-        res.json(err.detail);
-    }
+exports.register = void 0;
+const Users_1 = require("./entities/Users");
+const typeorm_1 = require("typeorm");
+const register = (userDetails) => __awaiter(void 0, void 0, void 0, function* () {
+    const registerd = yield (0, typeorm_1.createQueryBuilder)('users').insert()
+        .into(Users_1.Users)
+        .values([userDetails])
+        .execute();
+    return registerd;
 });
-exports.auth = auth;
-//# sourceMappingURL=auth.js.map
+exports.register = register;
+//# sourceMappingURL=register.js.map

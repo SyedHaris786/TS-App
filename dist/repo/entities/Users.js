@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Users = void 0;
 const typeorm_1 = require("typeorm");
 const Orders_1 = require("./Orders");
-let Users = class Users {
+let Users = class Users extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ type: "bigint", name: "user_id" }),
@@ -40,12 +40,10 @@ __decorate([
 ], Users.prototype, "age", void 0);
 __decorate([
     (0, typeorm_1.Column)("character varying", {
-        name: "phone_number",
-        nullable: true,
-        length: 12,
+        name: "phone_number", length: 12
     }),
-    __metadata("design:type", Object)
-], Users.prototype, "phoneNumber", void 0);
+    __metadata("design:type", String)
+], Users.prototype, "phone_number", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => Orders_1.Orders, (orders) => orders.user),
     __metadata("design:type", Array)
