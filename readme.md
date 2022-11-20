@@ -1,4 +1,4 @@
-###Folder Structure
+# Folder Structure
 ## Routes
     Routes will define the endpoints 
   1. For login and register </br>
