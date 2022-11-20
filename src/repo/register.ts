@@ -1,5 +1,6 @@
 import { Users } from "./entities/Users";
-import { createQueryBuilder } from "typeorm";
+import { DataSource } from "typeorm";
+import { AppDataSource } from "./connectdb";
 
 type userDetails = {
     username: string,
@@ -11,7 +12,8 @@ type userDetails = {
 // Add user
 export const register = async (userDetails: userDetails) => {
 
-    const registerd = await createQueryBuilder('users').insert()
+    const registerd = await AppDataSource.getRepository(Users)
+        .createQueryBuilder("users").insert()
         .into(Users)
         .values([userDetails])
         .execute();

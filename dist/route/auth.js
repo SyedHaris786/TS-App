@@ -26,6 +26,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = __importStar(require("express"));
 const auth_1 = require("../controller/auth");
 const router = express.Router();
-router.post('/register', auth_1.auth);
+router.post('/auth', auth_1.auth);
 module.exports = router;
 //# sourceMappingURL=auth.js.map

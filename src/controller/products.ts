@@ -1,18 +1,22 @@
 import { Products } from "../repo/entities/Products"
-import { createQueryBuilder } from "typeorm"
+import { DataSource } from "typeorm"
+import { AppDataSource } from "../repo/connectdb"
+
 
 export const product = async (req: any, res: any) => {
     const { id } = req.params
 
-    const singleProduct = await createQueryBuilder('products')
+    const singleProduct = await AppDataSource.getRepository(Products)
+        .createQueryBuilder("products")
         .where(`product_id = ${id}`)
         .getOne();
 
-    return res.json(singleProduct)
+    res.json(singleProduct)
 }
 
 export const allproducts = async (req: any, res: any) => {
-    const getAllProducts = await createQueryBuilder('products')
+    const getAllProducts = await AppDataSource.getRepository(Products)
+        .createQueryBuilder("products")
         .select("*")
         .getRawMany();
 

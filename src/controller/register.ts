@@ -1,11 +1,9 @@
-// const pool = require("../scripts/connectdb")
-const { verify } = require("../repo/register")
 const bcrypt = require('bcrypt');
 import { register } from "../repo/register";
 
 export const auth = async (req: any, res: any) => {
 
-  const {
+  let {
     username,
     email,
     password,
@@ -14,13 +12,16 @@ export const auth = async (req: any, res: any) => {
 
   console.log(req.body);
 
-
   try {
 
     if (!username || !email || !password || !phone_number) {
       res.json("Please enter all values");
 
     } else {
+
+      let hashedPassword = await bcrypt.hash(password, 5);
+      password = hashedPassword;
+      console.log(password);
 
       const added = await register({
         username,
@@ -34,7 +35,7 @@ export const auth = async (req: any, res: any) => {
     }
   } catch (err) {
 
-    console.log(err.detail);
+    console.log(err);
     res.json(err.detail)
 
   }

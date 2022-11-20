@@ -36,16 +36,25 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const express = require('express');
 const app = express();
+const connectdb_1 = require("./repo/connectdb");
 const { main } = require("./repo/connectdb");
+const auth = require('./route/auth');
 const products = require('./route/products');
-const auth = require('./route/register');
+const register = require('./route/register');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/api/v1', products);
 app.use('/api/v1', auth);
+app.use('/api/v1', products);
+app.use('/api/v1', register);
 const port = process.env.PORT || 3000;
 const server = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield main();
+    yield connectdb_1.AppDataSource.initialize()
+        .then(() => {
+        console.log("Data Source has been initialized!");
+    })
+        .catch((err) => {
+        console.error("Error during Data Source initialization", err);
+    });
     app.listen(port, (err) => {
         if (err) {
             return console.log(err);

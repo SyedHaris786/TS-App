@@ -9,15 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.creds = void 0;
 const Users_1 = require("./entities/Users");
-const typeorm_1 = require("typeorm");
-const register = (userDetails) => __awaiter(void 0, void 0, void 0, function* () {
-    const registerd = yield (0, typeorm_1.createQueryBuilder)('users').insert()
-        .into(Users_1.Users)
-        .values(userDetails)
-        .execute();
-    return registerd;
+const connectdb_1 = require("./connectdb");
+const creds = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(email);
+    console.log(`email = ${email}`);
+    const getDetails = yield connectdb_1.AppDataSource.getRepository(Users_1.Users)
+        .createQueryBuilder("users")
+        .select("username", "password")
+        .where(`email = ${email}`)
+        .getRawOne();
+    return getDetails;
 });
-exports.register = register;
+exports.creds = creds;
 //# sourceMappingURL=auth.js.map

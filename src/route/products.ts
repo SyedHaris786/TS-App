@@ -1,14 +1,14 @@
 import * as express from 'express'
-
-
+import { auth } from '../middleware/authValidation';
 import { product, allproducts } from '../controller/products'
 
 const router = express.Router();
 
 
 
-router.route('/product/:id').get(product)
-router.route('/products').get(allproducts)
+
+router.route('/product/:id').get(auth, product)
+router.route('/products').get(auth, allproducts)
 
 
 module.exports = router

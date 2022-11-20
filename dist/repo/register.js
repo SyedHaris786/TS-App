@@ -11,9 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
 const Users_1 = require("./entities/Users");
-const typeorm_1 = require("typeorm");
+const connectdb_1 = require("./connectdb");
 const register = (userDetails) => __awaiter(void 0, void 0, void 0, function* () {
-    const registerd = yield (0, typeorm_1.createQueryBuilder)('users').insert()
+    const registerd = yield connectdb_1.AppDataSource.getRepository(Users_1.Users)
+        .createQueryBuilder("users").insert()
         .into(Users_1.Users)
         .values([userDetails])
         .execute();

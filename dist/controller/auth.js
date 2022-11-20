@@ -10,25 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.auth = void 0;
-const { verify } = require("../repo/auth");
 const bcrypt = require('bcrypt');
 const auth_1 = require("../repo/auth");
 const auth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password, phone_number } = req.body;
-    console.log(req.body);
-    try {
-        const added = yield (0, auth_1.register)({
-            username,
-            email,
-            password,
-            phone_number
-        });
-        res.json({ "User added successfully": added });
-    }
-    catch (err) {
-        console.log(err.detail);
-        res.json(err.detail);
-    }
+    const { email, password } = req.body;
+    console.log(email, " ", password);
+    const getCreds = (0, auth_1.creds)(email);
+    res.json(getCreds);
+    console.log(getCreds);
 });
 exports.auth = auth;
 //# sourceMappingURL=auth.js.map

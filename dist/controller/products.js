@@ -10,17 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.allproducts = exports.product = void 0;
-const typeorm_1 = require("typeorm");
+const Products_1 = require("../repo/entities/Products");
+const connectdb_1 = require("../repo/connectdb");
 const product = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const singleProduct = yield (0, typeorm_1.createQueryBuilder)('products')
+    const singleProduct = yield connectdb_1.AppDataSource.getRepository(Products_1.Products)
+        .createQueryBuilder("products")
         .where(`product_id = ${id}`)
         .getOne();
     return res.json(singleProduct);
 });
 exports.product = product;
 const allproducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const getAllProducts = yield (0, typeorm_1.createQueryBuilder)('products')
+    const getAllProducts = yield connectdb_1.AppDataSource.getRepository(Products_1.Products)
+        .createQueryBuilder("products")
         .select("*")
         .getRawMany();
     res.json(getAllProducts);
