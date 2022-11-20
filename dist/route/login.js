@@ -24,10 +24,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = __importStar(require("express"));
-const authValidation_1 = require("../middleware/authValidation");
-const products_1 = require("../controller/products");
+const login_1 = require("../controller/login");
 const router = express.Router();
-router.route('/product/:id').get(authValidation_1.auth, products_1.product);
-router.route('/products').get(authValidation_1.auth, products_1.allproducts);
+router.post('/login', login_1.login);
 module.exports = router;
-//# sourceMappingURL=products.js.map
+//# sourceMappingURL=login.js.map

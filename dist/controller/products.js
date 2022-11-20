@@ -18,7 +18,7 @@ const product = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         .createQueryBuilder("products")
         .where(`product_id = ${id}`)
         .getOne();
-    return res.json(singleProduct);
+    res.json(singleProduct);
 });
 exports.product = product;
 const allproducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
