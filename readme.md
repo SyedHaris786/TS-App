@@ -1,4 +1,4 @@
-# Folder Structure
+# Shopping Cart
 ## Routes
     Routes will define the endpoints 
   1. For login and register </br>
