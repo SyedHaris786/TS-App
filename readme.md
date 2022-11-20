@@ -1,6 +1,14 @@
 ###Folder Structure
 ## Routes
     Routes will define the endpoints 
+  1. For login and register
+    /login 
+    /register
+  2. Protected Routes
+    to get all products:
+    /products
+    To get single product:
+    /product/:id
 ## Controller 
     Will validate request respons
 ## Service 
