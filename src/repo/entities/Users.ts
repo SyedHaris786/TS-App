@@ -36,6 +36,9 @@ export class Users extends BaseEntity {
   })
   phone_number: string;
 
+  @Column()
+  isAdmin: boolean
+
   @OneToMany(() => Orders, (orders) => orders.user)
   orders: Orders[];
 }

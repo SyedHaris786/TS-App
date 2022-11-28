@@ -13,6 +13,7 @@ const { main } = require("./repo/connectdb")
 const login = require('./route/login')
 const products = require('./route/products');
 const register = require('./route/register')
+const order = require('./route/order')
 
 
 //Json Middleware
@@ -23,16 +24,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/api/v1', login);
 app.use('/api/v1', products);
 app.use('/api/v1', register);
-
-
+app.use('/api/v1', order);
 
 
 //SERVER
 const port = process.env.PORT || 3000;
 const server = async () => {
 
-  // let a =  await pool.query('SELECT NOW();');
-  // console.log("DB connected at: " + a.rows[0].now);
 
   await AppDataSource.initialize()
     .then(() => {

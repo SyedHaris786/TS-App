@@ -28,6 +28,5 @@ export class Products {
   @Column("bigint", { name: "stock_qty" })
   stockQty: string;
 
-  @OneToMany(() => Orders, (orders) => orders.product)
-  orders: Orders[];
+
 }

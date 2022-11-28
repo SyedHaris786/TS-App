@@ -6,9 +6,10 @@ const router = express.Router();
 
 
 
-
+// Select Routes
 router.route('/product/:id').get(auth, product)
 router.route('/products').get(auth, allproducts)
+
 
 
 module.exports = router

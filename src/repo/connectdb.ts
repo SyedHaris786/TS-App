@@ -33,7 +33,7 @@ export const AppDataSource = new DataSource({
   password: pool.password,
   database: pool.database,
   entities: [Users, Products, Orders],
-  // synchronize: true
+  synchronize: true
 });
 
 

@@ -21,8 +21,10 @@ export class Orders {
   @Column("text", { name: "address" })
   address: string;
 
-  @Column("integer", { name: "quantity" })
-  quantity: number;
+  @Column("jsonb", { name: "order_details" })
+  order_detials: any;
+
+
 
   @Column("timestamp without time zone", {
     name: "created_at",
@@ -34,9 +36,6 @@ export class Orders {
   @Column("timestamp without time zone", { name: "updated_at", nullable: true })
   updatedAt: Date | null;
 
-  @ManyToOne(() => Products, (products) => products.orders)
-  @JoinColumn([{ name: "product_id", referencedColumnName: "productId" }])
-  product: Products;
 
   @ManyToOne(() => Users, (users) => users.orders)
   @JoinColumn([{ name: "user_id", referencedColumnName: "userId" }])
