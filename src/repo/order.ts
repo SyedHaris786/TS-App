@@ -5,19 +5,22 @@ import { AppDataSource } from "../repo/connectdb"
 
 
 type orderDetails = {
-    userid: string,
+    userid: number,
     address: string,
-    products: [any]
+    products: [any],
+    total: number
 }
 
 
-const saveOrder = async (orderDetails: orderDetails) => {
+export const saveOrder = async (delivered: any, address: string, order_details: any, user_id: number, total: number) => {
 
     const orderSave = await AppDataSource.getRepository(Orders)
         .createQueryBuilder("orders").insert()
         .into(Orders)
-        .values([orderDetails])
+        .values([delivered, address, order_details, user_id, total])
         .execute();
+
+    return orderSave
 }
 
 

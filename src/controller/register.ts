@@ -19,10 +19,12 @@ export const auth = async (req: any, res: any) => {
     if (!username || !email || !password || !phone_number) {
       res.json("Please enter all values");
 
-    } else if (getCreds[0].email || getCreds.length > 0) {
-
-      res.json("Email already exist")
     }
+
+    // if (getCreds[0].email || getCreds.length > 0) {
+
+    //   res.json("Email already exist")
+    // }
     else {
 
       let hashedPassword = await bcrypt.hash(password, 5);
@@ -36,7 +38,7 @@ export const auth = async (req: any, res: any) => {
         phone_number
       })
 
-      res.json({ "User created:": added })
+      res.send("User created")
 
     }
   } catch (err) {

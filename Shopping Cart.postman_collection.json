@@ -10,7 +10,7 @@
 			"name": "User Routes",
 			"item": [
 				{
-					"name": "Rgister",
+					"name": "Register",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -18,7 +18,7 @@
 					"response": []
 				},
 				{
-					"name": "localhost:5000/api/v1/login",
+					"name": "Login",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -49,62 +49,75 @@
 			]
 		},
 		{
-			"name": "All Products",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"email\":\"bottle@google.com\",\r\n    \"password\": \"justdoit\"\r\n\r\n}\r\n\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Products",
+			"item": [
+				{
+					"name": "All Products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"email\":\"bottle@google.com\",\r\n    \"password\": \"justdoit\"\r\n\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:5000/api/v1/products",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"products"
-					]
+				{
+					"name": "Single product",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnJ5eXkiLCJpYXQiOjE2Njg4NDMwMzksImV4cCI6MTY3MTQzNTAzOX0.ENv8tdAQqTSmZXBfSFUO5-4hohXTPykBfZW09hlEK9M",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/product/12",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"product",
+								"12"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Single product",
+			"name": "Order",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnJ5eXkiLCJpYXQiOjE2Njg4NDMwMzksImV4cCI6MTY3MTQzNTAzOX0.ENv8tdAQqTSmZXBfSFUO5-4hohXTPykBfZW09hlEK9M",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "localhost:5000/api/v1/product/12",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"product",
-						"12"
-					]
-				}
+				"header": []
 			},
 			"response": []
 		}

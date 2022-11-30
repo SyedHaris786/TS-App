@@ -1,9 +1,9 @@
-import { productsPrice } from "../repo/order"
+import { productsPrice, saveOrder } from "../repo/order"
 
 
 export const order = async (req: any, res: any) => {
 
-    const { userid, address, products } = req.body;
+    let { userid, address, products } = req.body;
 
     // res.json({ userid, address, products });
     // console.log(products);
@@ -26,12 +26,18 @@ export const order = async (req: any, res: any) => {
 
             const fetchedValues = await productsPrice(productsIds)
 
-            const sum = fetchedValues.reduce((accumulator, object) => {
+            const total = fetchedValues.reduce((accumulator, object) => {
                 return accumulator + object.price;
             }, 0);
 
-            console.log(sum, userid, address);
-            res.json({ sum, userid, address });
+            // address = JSON.stringify(address);
+
+            // let prods = JSON.stringify(products);
+            res.json({ total, userid, address });
+
+            // let delivered = "1";
+            // const save = saveOrder(delivered, address, prods, userid, total);
+            // console.log(save);
 
         }
 
@@ -39,8 +45,6 @@ export const order = async (req: any, res: any) => {
         console.log(err);
 
     }
-
-
 
 }
 

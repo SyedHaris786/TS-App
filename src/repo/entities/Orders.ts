@@ -15,7 +15,7 @@ export class Orders {
   @PrimaryGeneratedColumn({ type: "bigint", name: "order_id" })
   orderId: string;
 
-  @Column("character varying", { name: "delivered", length: 1 })
+  @Column("character varying", { name: "delivered", length: 1, nullable: true })
   delivered: string;
 
   @Column("text", { name: "address" })
