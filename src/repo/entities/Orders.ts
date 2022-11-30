@@ -21,10 +21,11 @@ export class Orders {
   @Column("text", { name: "address" })
   address: string;
 
+  @Column("int", { name: "total" })
+  total: number;
+
   @Column("jsonb", { name: "order_details" })
   order_detials: any;
-
-
 
   @Column("timestamp without time zone", {
     name: "created_at",
@@ -35,6 +36,7 @@ export class Orders {
 
   @Column("timestamp without time zone", { name: "updated_at", nullable: true })
   updatedAt: Date | null;
+
 
 
   @ManyToOne(() => Users, (users) => users.orders)

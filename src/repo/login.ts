@@ -9,6 +9,7 @@ export const creds = async (email: any) => {
     const getDetails = await Users.find({
         select: {
             username: true,
+            email: true,
             password: true
         },
 
@@ -19,4 +20,5 @@ export const creds = async (email: any) => {
 
     return getDetails
 }
+
 

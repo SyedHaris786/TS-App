@@ -7,39 +7,40 @@ export const login = async (req: any, res: any) => {
 
     const { email, password } = req.body;
     try {
-        // if (!email || !password) {
-        //     res.send("Please Enter the valid Credentials")
-        // }
+        if (!email || !password) {
+            res.send("Please Enter the valid Credentials")
+        }
 
         const getCreds = await creds(email);
-        const validPassword = getCreds[0].password
 
 
+        if (!getCreds || getCreds.length == 0) {
+            res.json("Please enter valid credentials")
+        }
+        else {
+            const validPassword = getCreds[0].password
 
-        bcrypt.compare(password, validPassword, (err: any, isMatch: any) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log(isMatch);
+            bcrypt.compare(password, validPassword, (err: any, isMatch: any) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log(isMatch);
 
-            if (isMatch) {
-                const username = getCreds[0].username;
+                if (isMatch) {
+                    const username = getCreds[0].username;
 
-                const jawt = jwt.sign({ 'username': username }, process.env.JWT_SECRET, {
-                    expiresIn: '30d',
-                })
+                    const jawt = jwt.sign({ 'username': username }, process.env.JWT_SECRET, {
+                        expiresIn: '30d',
+                    })
 
+                    res.json(jawt)
 
-                res.json(jawt)
+                } else {
+                    res.json("Invalid Credentials");
+                }
 
-            } else {
-                res.json("Invalid Credentials");
-            }
-
-        });
-
-
-
+            });
+        }
     } catch (err) {
         console.log(err);
 
