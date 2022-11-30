@@ -14,12 +14,12 @@ const login = require('./route/login')
 const products = require('./route/products');
 const register = require('./route/register')
 const order = require('./route/order')
-
+const cors = require("cors")
 
 //Json Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
+app.use(cors())
 
 app.use('/api/v1', login);
 app.use('/api/v1', products);
