@@ -39,6 +39,6 @@ export class Users extends BaseEntity {
   @Column("bool", { name: "isAdmin", nullable: true })
   isAdmin: boolean
 
-  @OneToMany(() => Orders, (orders) => orders.user)
+  @OneToMany(() => Orders, (orders) => orders.user_id)
   orders: Orders[];
 }

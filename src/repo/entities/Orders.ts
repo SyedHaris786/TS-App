@@ -24,8 +24,8 @@ export class Orders {
   @Column("int", { name: "total" })
   total: number;
 
-  @Column("jsonb", { name: "order_details" })
-  order_detials: any;
+  @Column("jsonb", { name: "products" })
+  products: any;
 
   @Column("timestamp without time zone", {
     name: "created_at",
@@ -38,8 +38,14 @@ export class Orders {
   updatedAt: Date | null;
 
 
+  // @ManyToOne(() => Users, (users) => users.orders)
+  // @JoinColumn([{ name: "user_id", referencedColumnName: "user_id" }])
+  // user: Users;
 
   @ManyToOne(() => Users, (users) => users.orders)
-  @JoinColumn([{ name: "user_id", referencedColumnName: "userId" }])
-  user: Users;
+  user_id: Users
+
+  // @Column("int", { name: "user_id" })
+  // user_id: number;
+
 }

@@ -3,7 +3,7 @@ import { productsPrice, saveOrder } from "../repo/order"
 
 export const order = async (req: any, res: any) => {
 
-    let { userid, address, products } = req.body;
+    let { userId, address, products } = req.body;
 
     // res.json({ userid, address, products });
     // console.log(products);
@@ -30,15 +30,13 @@ export const order = async (req: any, res: any) => {
                 return accumulator + object.price;
             }, 0);
 
-            // address = JSON.stringify(address);
 
-            // let prods = JSON.stringify(products);
-            res.json({ total, userid, address });
-
-            // let delivered = "1";
-            // const save = saveOrder(delivered, address, prods, userid, total);
+            let delivered = 0;
+            const save = await saveOrder({ delivered, address, products, user_id: userId, total });
             // console.log(save);
 
+
+            res.json({ total, userId, address });
         }
 
     } catch (err) {
