@@ -9,6 +9,23 @@
     /products</br>
     To get single product:</br>
     /product/:id</br>
+  3. Order Route </br>
+    To add an order </br>
+    /order
+    It takes an object in req.body like:
+ ```JSON
+{
+  "userId": 3,
+  "address": "Hello street 123",
+  "products": [
+    {
+      "product_id": 2,
+      "qty": 2
+    }
+  ]
+}
+  ```
+    
 ## Controller 
     Will validate request respons
 ## Service 
