@@ -1,5 +1,6 @@
 import { productsPrice, saveOrder } from "../repo/order"
 
+//To calculate the total price and save the final order in DB 
 
 export const order = async (req: any, res: any) => {
 

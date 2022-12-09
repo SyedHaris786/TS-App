@@ -13,7 +13,7 @@ export class Products {
   @PrimaryGeneratedColumn({ type: "bigint", name: "product_id" })
   productId: string;
 
-  @Column("character varying", { name: "product_name", length: 50 })
+  @Column("character varying", { name: "product_name", unique: true, length: 50 })
   productName: string;
 
   @Column("character varying", { name: "category", nullable: true, length: 50 })
@@ -22,7 +22,7 @@ export class Products {
   @Column("double precision", { name: "price" })
   price: number;
 
-  @Column("character varying", { name: "product_description", length: 254 })
+  @Column("character varying", { name: "product_description", length: 254, nullable: true })
   productDescription: string;
 
   @Column("bigint", { name: "stock_qty" })
