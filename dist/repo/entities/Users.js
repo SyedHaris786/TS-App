@@ -45,7 +45,11 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "phone_number", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Orders_1.Orders, (orders) => orders.user),
+    (0, typeorm_1.Column)("bool", { name: "isAdmin", nullable: true }),
+    __metadata("design:type", Boolean)
+], Users.prototype, "isAdmin", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Orders_1.Orders, (orders) => orders.user_id),
     __metadata("design:type", Array)
 ], Users.prototype, "orders", void 0);
 Users = __decorate([

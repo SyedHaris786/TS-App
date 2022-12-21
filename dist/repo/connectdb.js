@@ -19,5 +19,6 @@ exports.AppDataSource = new typeorm_1.DataSource({
     password: pool.password,
     database: pool.database,
     entities: [Users_1.Users, Products_1.Products, Orders_1.Orders],
+    synchronize: true
 });
 //# sourceMappingURL=connectdb.js.map

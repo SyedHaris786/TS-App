@@ -16,24 +16,32 @@ const jwt = require('jsonwebtoken');
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
+        if (!email || !password) {
+            res.send("Please Enter the valid Credentials");
+        }
         const getCreds = yield (0, login_1.creds)(email);
-        const validPassword = getCreds[0].password;
-        bcrypt.compare(password, validPassword, (err, isMatch) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log(isMatch);
-            if (isMatch) {
-                const username = getCreds[0].username;
-                const jawt = jwt.sign({ 'username': username }, process.env.JWT_SECRET, {
-                    expiresIn: '30d',
-                });
-                res.json(jawt);
-            }
-            else {
-                res.json("Invalid Credentials");
-            }
-        });
+        if (!getCreds || getCreds.length == 0) {
+            res.json("Please enter valid credentials");
+        }
+        else {
+            const validPassword = getCreds[0].password;
+            bcrypt.compare(password, validPassword, (err, isMatch) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log(isMatch);
+                if (isMatch) {
+                    const username = getCreds[0].username;
+                    const jawt = jwt.sign({ 'username': username }, process.env.JWT_SECRET, {
+                        expiresIn: '30d',
+                    });
+                    res.json(jawt);
+                }
+                else {
+                    res.json("Invalid Credentials");
+                }
+            });
+        }
     }
     catch (err) {
         console.log(err);

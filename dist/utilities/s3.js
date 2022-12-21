@@ -32,40 +32,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = __importStar(require("dotenv"));
-dotenv.config();
-const express = require('express');
-const app = express();
-const multer = require("multer");
-const connectdb_1 = require("./repo/connectdb");
-const { main } = require("./repo/connectdb");
-const login = require('./route/login');
-const products = require('./route/products');
-const register = require('./route/register');
-const order = require('./route/order');
-const cors = require("cors");
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cors());
-app.use('/api/v1', login);
-app.use('/api/v1', products);
-app.use('/api/v1', register);
-app.use('/api/v1', order);
-const port = process.env.PORT || 3000;
-const server = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield connectdb_1.AppDataSource.initialize()
-        .then(() => {
-        console.log("Data Source has been initialized!");
-    })
-        .catch((err) => {
-        console.error("Error during Data Source initialization", err);
-    });
-    app.listen(port, (err) => {
-        if (err) {
-            return console.log(err);
-        }
-        return console.log(`Server is listening on ${port}`);
-    });
+exports.presignedURL = void 0;
+require("dotenv").config();
+const AWS = require("aws-sdk");
+const uuid = require("uuid").v4;
+const crypto = __importStar(require("crypto"));
+const { promisify } = require("util");
+const randomBytes = promisify(crypto.randomBytes);
+const presignedURL = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield AWS.config.update({ region: "us-east-1" });
+        const s3 = new AWS.S3({
+            signatureVersion: "v4",
+        });
+        const rawBytes = yield randomBytes(16);
+        const imageName = rawBytes.toString("hex");
+        const params = {
+            Bucket: "ts-shopping-cart",
+            Key: imageName,
+            Expires: 3600,
+        };
+        const response = yield s3.getSignedUrl("putObject", params);
+        res.send(response);
+    }
+    catch (e) {
+        console.log(e);
+        res.send("There was some kind of an error");
+    }
 });
-server();
-//# sourceMappingURL=index.js.map
+exports.presignedURL = presignedURL;
+//# sourceMappingURL=s3.js.map

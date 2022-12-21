@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.auth = void 0;
 const bcrypt = require('bcrypt');
 const register_1 = require("../repo/register");
+const login_1 = require("../repo/login");
 const auth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let { username, email, password, phone_number } = req.body;
     console.log(req.body);
     try {
+        const getCreds = yield (0, login_1.creds)(email);
         if (!username || !email || !password || !phone_number) {
             res.json("Please enter all values");
         }
@@ -29,7 +31,7 @@ const auth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 password,
                 phone_number
             });
-            res.json({ "User created:": added });
+            res.send("User created");
         }
     }
     catch (err) {

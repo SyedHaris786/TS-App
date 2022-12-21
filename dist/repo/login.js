@@ -15,6 +15,7 @@ const creds = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const getDetails = yield Users_1.Users.find({
         select: {
             username: true,
+            email: true,
             password: true
         },
         where: {

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Products = void 0;
 const typeorm_1 = require("typeorm");
-const Orders_1 = require("./Orders");
 let Products = class Products {
 };
 __decorate([
@@ -19,7 +18,7 @@ __decorate([
     __metadata("design:type", String)
 ], Products.prototype, "productId", void 0);
 __decorate([
-    (0, typeorm_1.Column)("character varying", { name: "product_name", length: 50 }),
+    (0, typeorm_1.Column)("character varying", { name: "product_name", unique: true, length: 50 }),
     __metadata("design:type", String)
 ], Products.prototype, "productName", void 0);
 __decorate([
@@ -31,17 +30,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Products.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.Column)("character varying", { name: "product_description", length: 254 }),
+    (0, typeorm_1.Column)("character varying", { name: "product_description", length: 254, nullable: true }),
     __metadata("design:type", String)
 ], Products.prototype, "productDescription", void 0);
 __decorate([
     (0, typeorm_1.Column)("bigint", { name: "stock_qty" }),
     __metadata("design:type", String)
 ], Products.prototype, "stockQty", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => Orders_1.Orders, (orders) => orders.product),
-    __metadata("design:type", Array)
-], Products.prototype, "orders", void 0);
 Products = __decorate([
     (0, typeorm_1.Index)("products_pkey", ["productId"], { unique: true }),
     (0, typeorm_1.Entity)("products", { schema: "public" })
