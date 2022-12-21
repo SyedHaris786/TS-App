@@ -15,7 +15,7 @@ export const order = async (req: any, res: any) => {
         if (!products || products.length == 0) {
             res.json("Order could not be empty")
         } else {
-            console.log(products);
+            console.log(products[0].qty);
             // res.json(products);
 
             let values: any = [];
@@ -25,19 +25,29 @@ export const order = async (req: any, res: any) => {
 
             const productsIds = values.toString();
 
-            const fetchedValues = await productsPrice(productsIds)
+            const fetchedValues = await productsPrice(productsIds);
 
-            const total = fetchedValues.reduce((accumulator, object) => {
-                return accumulator + object.price;
+
+            let totalWithQuantity: any = []
+
+            for (let i = 0; i < products.length; i++) {
+                const quantityPrice = products[i].qty * fetchedValues[i].price;
+                totalWithQuantity.push(quantityPrice)
+            }
+
+
+            const total = totalWithQuantity.reduce((accumulator: any, object: any) => {
+                return accumulator + object;
             }, 0);
 
+            console.log({ "total": total });
 
             let delivered = 0;
             const save = await saveOrder({ delivered, address, products, user_id: userId, total });
-            // console.log(save);
+            console.log(save);
 
 
-            res.json({ total, userId, address });
+            res.json({ userId, address });
         }
 
     } catch (err) {

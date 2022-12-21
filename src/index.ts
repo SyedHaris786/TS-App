@@ -2,7 +2,10 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 const express = require('express');
 const app = express();
+const multer = require("multer")
 import { AppDataSource } from './repo/connectdb'
+
+
 
 //DB Connection
 const { main } = require("./repo/connectdb")

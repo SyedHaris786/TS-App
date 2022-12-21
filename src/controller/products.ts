@@ -1,16 +1,11 @@
-import { Products } from "../repo/entities/Products"
-import { DataSource } from "typeorm"
-import { AppDataSource } from "../repo/connectdb"
-import { Users } from "../repo/entities/Users"
+import { getAllProducts, getSingleProduct, checkAdmin, productInsert, updateProductsItem } from "../repo/products"
+
 
 //To see single product details
 export const product = async (req: any, res: any) => {
     const { id } = req.params
 
-    const singleProduct = await AppDataSource.getRepository(Products)
-        .createQueryBuilder("products")
-        .where(`product_id = ${id}`)
-        .getOne();
+    const singleProduct = await getSingleProduct(id);
 
     res.json(singleProduct)
 }
@@ -18,15 +13,11 @@ export const product = async (req: any, res: any) => {
 
 //All Products Controller 
 export const allProducts = async (req: any, res: any) => {
-    const getAllProducts = await AppDataSource
-        .getRepository(Products)
-        .createQueryBuilder("products")
-        .select("*")
-        .getRawMany();
-
-    res.json(getAllProducts);
+    const getProducts = await getAllProducts();
+    res.json(getProducts);
 
 }
+
 
 
 export const addProduct = async (req: any, res: any) => {
@@ -39,33 +30,32 @@ export const addProduct = async (req: any, res: any) => {
         productDescription,
         qty } = req.body;
 
+
+
     if (!productName || !category || !price || !qty) {
         res.json("Add all details")
     } else {
 
         try {
 
-            const validateAdmin = await AppDataSource
-                .getRepository(Users)
-                .createQueryBuilder("users")
-                .select(`"isAdmin"`)
-                .where(`user_id = ${userId}`)
-                .getRawMany();
+            const validateAdmin = await checkAdmin(userId);
 
 
             const adminCheck = validateAdmin[0].isAdmin
 
+
             if (adminCheck === true) {
 
-                const insertProduct = await AppDataSource
-                    .getRepository(Products)
-                    .createQueryBuilder("products")
-                    .insert()
-                    .into(Products)
-                    .values({ productName, category, price, productDescription, stockQty: qty })
-                    .execute();
+                const insertProduct = await productInsert({
+                    productName,
+                    category,
+                    price,
+                    productDescription,
+                    stockQty: qty
+                })
 
                 res.json(`Added product ${productName} Successfully! `);
+
                 console.log(`Added product ${productName} Successfully! `);
 
 
@@ -96,22 +86,16 @@ export const updateProduct = async (req: any, res: any) => {
 
 
     const updatedItems = {
-        category: category,
-        price: price,
-        productDescription: productDescription,
+        category,
+        price,
+        productDescription,
         stockQty: qty
     }
 
     try {
 
 
-        const updateProduct = await AppDataSource.
-            getRepository(Products)
-            .createQueryBuilder()
-            .update(Products)
-            .set(updatedItems)
-            .where(`product_id = ${productId}`)
-            .execute()
+        const updateProduct = await updateProductsItem(updatedItems, productId)
 
         res.json(updateProduct);
 
