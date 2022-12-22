@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { auth } from '../middleware/authValidation';
 import { product, allProducts, addProduct, updateProduct } from '../controller/products';
-import { presignedURL } from "../utilities/s3"
 const router = express.Router();
 
 
@@ -12,7 +11,6 @@ router.route('/products').get(auth, allProducts)
 
 
 //For Adding a product
-router.route("/singnedurl").get(presignedURL)
 router.route('/product/').post(addProduct);
 
 //Updating a Product

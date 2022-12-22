@@ -30,8 +30,6 @@ export const addProduct = async (req: any, res: any) => {
         productDescription,
         qty } = req.body;
 
-
-
     if (!productName || !category || !price || !qty) {
         res.json("Add all details")
     } else {
@@ -53,6 +51,7 @@ export const addProduct = async (req: any, res: any) => {
                     productDescription,
                     stockQty: qty
                 })
+                console.log(insertProduct);
 
                 res.json(`Added product ${productName} Successfully! `);
 

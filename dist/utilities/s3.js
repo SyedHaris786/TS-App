@@ -50,7 +50,7 @@ const presignedURL = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const params = {
             Bucket: "ts-shopping-cart",
             Key: imageName,
-            Expires: 3600,
+            Expires: 60,
         };
         const response = yield s3.getSignedUrl("putObject", params);
         res.send(response);
