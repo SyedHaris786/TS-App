@@ -17,7 +17,9 @@ export const creds = async (email: any) => {
             email: email
         }
     })
-
+    if (getDetails) {
+        console.log('User found')
+    }
     return getDetails
 }
 

@@ -2,18 +2,18 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 const express = require('express');
 const app = express();
-const multer = require("multer")
+const multer = require("multer") // todo
 import { AppDataSource } from './repo/connectdb'
 
 
 
 //DB Connection
-const { main } = require("./repo/connectdb")
+const { main } = require("./repo/connectdb") // todo
 // const pool = require("./scripts/connectdb")
 
 
 //Routes Import
-const login = require('./route/login')
+import login from './route/login';
 const products = require('./route/products');
 const register = require('./route/register')
 const order = require('./route/order')
