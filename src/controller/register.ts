@@ -21,13 +21,13 @@ export const auth = async (req: any, res: any) => {
 
     }
 
-    // if (getCreds[0].email || getCreds.length > 0) {
+    if (getCreds[0].email || getCreds.length > 0) {
 
-    //   res.json("Email already exist")
-    // }
+      res.json("Email already exist")
+    }
     else {
 
-      let hashedPassword = await bcrypt.hash(password, 5);
+      const hashedPassword = await bcrypt.hash(password, 5);
       password = hashedPassword;
       console.log(password);
 

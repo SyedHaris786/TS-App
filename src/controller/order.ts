@@ -4,7 +4,7 @@ import { productsPrice, saveOrder } from "../repo/order"
 
 export const order = async (req: any, res: any) => {
 
-    let { userId, address, products } = req.body;
+    const { userId, address, products } = req.body;
 
     // res.json({ userid, address, products });
     // console.log(products);
@@ -18,7 +18,7 @@ export const order = async (req: any, res: any) => {
             console.log(products[0].qty);
             // res.json(products);
 
-            let values: any = [];
+            const values: any = [];
             const productsArray = await products.forEach((element: any) => {
                 values.push(element.product_id);
             });
@@ -28,7 +28,7 @@ export const order = async (req: any, res: any) => {
             const fetchedValues = await productsPrice(productsIds);
 
 
-            let totalWithQuantity: any = []
+            const totalWithQuantity: any = []
 
             for (let i = 0; i < products.length; i++) {
                 const quantityPrice = products[i].qty * fetchedValues[i].price;
@@ -42,7 +42,7 @@ export const order = async (req: any, res: any) => {
 
             console.log({ "total": total });
 
-            let delivered = 0;
+            const delivered = 0;
             const save = await saveOrder({ delivered, address, products, user_id: userId, total });
             console.log(save);
 

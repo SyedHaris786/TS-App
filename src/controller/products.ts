@@ -28,7 +28,8 @@ export const addProduct = async (req: any, res: any) => {
         category,
         price,
         productDescription,
-        qty } = req.body;
+        qty,
+        imageKey } = req.body;
 
 
 
@@ -51,7 +52,8 @@ export const addProduct = async (req: any, res: any) => {
                     category,
                     price,
                     productDescription,
-                    stockQty: qty
+                    stockQty: qty,
+                    image_key: imageKey
                 })
 
                 res.json(`Added product ${productName} Successfully! `);
@@ -82,14 +84,16 @@ export const updateProduct = async (req: any, res: any) => {
         category,
         price,
         productDescription,
-        qty } = req.body;
+        qty,
+        imageKey } = req.body;
 
 
     const updatedItems = {
         category,
         price,
         productDescription,
-        stockQty: qty
+        stockQty: qty,
+        image_key: imageKey
     }
 
     try {

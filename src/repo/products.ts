@@ -1,5 +1,4 @@
 import { Products } from "../repo/entities/Products"
-import { DataSource } from "typeorm"
 import { AppDataSource } from "../repo/connectdb"
 import { Users } from "../repo/entities/Users"
 
@@ -20,8 +19,6 @@ export const getAllProducts = async () => {
         .createQueryBuilder("products")
         .select("*")
         .getRawMany();
-
-
 }
 
 // To get the status of a user either its admin true or null
@@ -40,7 +37,8 @@ type productsDetails = {
     category: string,
     price: number,
     productDescription: string,
-    stockQty: string
+    stockQty: string,
+    image_key: string
 }
 
 //Add Product Function 
@@ -60,7 +58,8 @@ type updatedItems = {
     category: string,
     price: number,
     productDescription: string,
-    stockQty: string
+    stockQty: string,
+    image_key: string
 }
 
 export const updateProductsItem = async (updatedItems: updatedItems, productId: number) => {

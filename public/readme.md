@@ -1,0 +1,1 @@
+This is the demo front end example to get the presigned url to upload product images
