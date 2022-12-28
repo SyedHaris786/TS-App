@@ -2,11 +2,9 @@ import {
   Column,
   Entity,
   Index,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Products } from "./Products";
 import { Users } from "./Users";
 
 @Index("orders_pkey", ["orderId"], { unique: true })

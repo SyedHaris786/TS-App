@@ -28,7 +28,8 @@ export const addProduct = async (req: any, res: any) => {
         category,
         price,
         productDescription,
-        qty } = req.body;
+        qty,
+        imageKey } = req.body;
 
     if (!productName || !category || !price || !qty) {
         res.json("Add all details")
@@ -49,7 +50,8 @@ export const addProduct = async (req: any, res: any) => {
                     category,
                     price,
                     productDescription,
-                    stockQty: qty
+                    stockQty: qty,
+                    image_key: imageKey
                 })
                 console.log(insertProduct);
 
@@ -81,14 +83,16 @@ export const updateProduct = async (req: any, res: any) => {
         category,
         price,
         productDescription,
-        qty } = req.body;
+        qty,
+        imageKey } = req.body;
 
 
     const updatedItems = {
         category,
         price,
         productDescription,
-        stockQty: qty
+        stockQty: qty,
+        image_key: imageKey
     }
 
     try {

@@ -1,9 +1,6 @@
 import { Products } from "../repo/entities/Products"
 import { Orders } from "../repo/entities/Orders"
-import { DataSource } from "typeorm"
 import { AppDataSource } from "../repo/connectdb"
-
-
 
 
 export const saveOrder = async (params: any) => {

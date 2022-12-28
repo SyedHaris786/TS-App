@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken')
+// import { jwt } from "jsonwebtoken"
+
 
 export const auth = async (req: any, res: any, next: any) => {
     // Check Header
@@ -10,7 +12,6 @@ export const auth = async (req: any, res: any, next: any) => {
 
     try {
         const token = authHeader.split(' ')[1]
-
         const payload = jwt.verify(token, process.env.JWT_SECRET)
         //Attach the user to the job routes    
         req.user = { userId: payload.userId, name: payload.name }

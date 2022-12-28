@@ -1,5 +1,4 @@
 import { Users } from "./entities/Users";
-import { DataSource } from "typeorm";
 import { AppDataSource } from "./connectdb";
 
 type userDetails = {

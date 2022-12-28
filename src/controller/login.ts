@@ -14,7 +14,7 @@ export const login = async (req: any, res: any) => {
         const getCreds = await creds(email);
 
 
-        if (!getCreds || getCreds.length == 0) {
+        if (!getCreds || getCreds.length === 0) {
             res.json("Please enter valid credentials")
         }
         else {

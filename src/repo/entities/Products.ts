@@ -2,10 +2,8 @@ import {
   Column,
   Entity,
   Index,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Orders } from "./Orders";
 
 @Index("products_pkey", ["productId"], { unique: true })
 @Entity("products", { schema: "public" })
@@ -28,5 +26,6 @@ export class Products {
   @Column("bigint", { name: "stock_qty" })
   stockQty: string;
 
-
+  @Column("character varying", { name: "image_key", nullable: true })
+  image_key: string;
 }

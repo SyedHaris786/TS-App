@@ -1,12 +1,9 @@
 import { Users } from "./entities/Users";
-import { DataSource } from "typeorm";
-import { AppDataSource } from "./connectdb";
-import e from "express";
 
 
-export const creds = async (email: any) => {
+export const creds = async (email: string) => {
 
-    const getDetails = await Users.find({
+    return await Users.find({
         select: {
             username: true,
             email: true,
@@ -17,10 +14,6 @@ export const creds = async (email: any) => {
             email: email
         }
     })
-    if (getDetails) {
-        console.log('User found')
-    }
-    return getDetails
 }
 
 
