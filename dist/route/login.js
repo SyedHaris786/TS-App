@@ -27,5 +27,5 @@ const express = __importStar(require("express"));
 const login_1 = require("../controller/login");
 const router = express.Router();
 router.post('/login', login_1.login);
-module.exports = router;
+exports.default = router;
 //# sourceMappingURL=login.js.map

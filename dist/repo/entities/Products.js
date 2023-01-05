@@ -37,6 +37,10 @@ __decorate([
     (0, typeorm_1.Column)("bigint", { name: "stock_qty" }),
     __metadata("design:type", String)
 ], Products.prototype, "stockQty", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: "image_key", nullable: true }),
+    __metadata("design:type", String)
+], Products.prototype, "image_key", void 0);
 Products = __decorate([
     (0, typeorm_1.Index)("products_pkey", ["productId"], { unique: true }),
     (0, typeorm_1.Entity)("products", { schema: "public" })

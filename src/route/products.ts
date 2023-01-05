@@ -16,4 +16,4 @@ router.route('/product/').post(addProduct);
 //Updating a Product
 router.route('/product/update').post(updateProduct)
 
-module.exports = router
+export default router

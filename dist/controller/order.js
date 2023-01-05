@@ -12,20 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.order = void 0;
 const order_1 = require("../repo/order");
 const order = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { userId, address, products } = req.body;
+    const { userId, address, products } = req.body;
     try {
         if (!products || products.length == 0) {
             res.json("Order could not be empty");
         }
         else {
             console.log(products[0].qty);
-            let values = [];
+            const values = [];
             const productsArray = yield products.forEach((element) => {
                 values.push(element.product_id);
             });
             const productsIds = values.toString();
             const fetchedValues = yield (0, order_1.productsPrice)(productsIds);
-            let totalWithQuantity = [];
+            const totalWithQuantity = [];
             for (let i = 0; i < products.length; i++) {
                 const quantityPrice = products[i].qty * fetchedValues[i].price;
                 totalWithQuantity.push(quantityPrice);
@@ -34,7 +34,7 @@ const order = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 return accumulator + object;
             }, 0);
             console.log({ "total": total });
-            let delivered = 0;
+            const delivered = 0;
             const save = yield (0, order_1.saveOrder)({ delivered, address, products, user_id: userId, total });
             console.log(save);
             res.json({ userId, address });

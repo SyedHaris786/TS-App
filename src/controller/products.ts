@@ -1,26 +1,25 @@
 import { getAllProducts, getSingleProduct, checkAdmin, productInsert, updateProductsItem } from "../repo/products"
-
+import { Request, Response } from 'express';
 
 //To see single product details
-export const product = async (req: any, res: any) => {
+export const product = async (req: Request, res: Response) => {
     const { id } = req.params
-
-    const singleProduct = await getSingleProduct(id);
+    const Id = parseInt(id)
+    const singleProduct = await getSingleProduct(Id);
 
     res.json(singleProduct)
 }
 
 
 //All Products Controller 
-export const allProducts = async (req: any, res: any) => {
+export const allProducts = async (req: Request, res: Response) => {
     const getProducts = await getAllProducts();
     res.json(getProducts);
 
 }
 
 
-
-export const addProduct = async (req: any, res: any) => {
+export const addProduct = async (req: Request, res: Response) => {
 
     const {
         userId,
@@ -76,7 +75,7 @@ export const addProduct = async (req: any, res: any) => {
 }
 
 
-export const updateProduct = async (req: any, res: any) => {
+export const updateProduct = async (req: Request, res: Response) => {
 
     const {
         productId,

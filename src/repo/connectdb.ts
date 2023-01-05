@@ -23,6 +23,7 @@ const pool = {
   password: process.env.DBPASSWORD,
   host: process.env.HOST,
   database: process.env.DATABASE,
+  port: process.env.PORT
 };
 
 export const AppDataSource = new DataSource({

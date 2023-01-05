@@ -1,18 +1,13 @@
-require("dotenv").config();
-const AWS = require("aws-sdk");
-import * as crypto from "crypto"
-const { promisify } = require("util");
-// const randomBytes = promisify(crypto.randomBytes);
+import * as dotenv from 'dotenv'
+dotenv.config()
+import AWS from "aws-sdk";
+import { Request, Response } from 'express';
+
 // import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
 // import { S3Client } from "@aws-sdk/client-s3";
 
-export const presignedURL = async (req: any, res: any) => {
+export const presignedURL = async (req: Request, res: Response) => {
     try {
-
-        // const rawBytes = await randomBytes(16);
-        // const imageName = rawBytes.toString("hex");
-
-
         const s3 = new AWS.S3({
             signatureVersion: "v4",
         });
@@ -29,7 +24,7 @@ export const presignedURL = async (req: any, res: any) => {
             ]
         };
 
-        params.Fields.key = req.query.filename || 'filename';
+        // params.Fields.key = req.query.filename || 'filename';
         s3.createPresignedPost(params, function (err: any, data: any) {
             if (err) {
                 console.log("Error", err);
@@ -42,11 +37,9 @@ export const presignedURL = async (req: any, res: any) => {
             }
         });
 
-
     } catch (e) {
         console.log(e);
         res.send("There was some kind of an error")
     }
-
 };
 

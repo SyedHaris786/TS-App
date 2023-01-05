@@ -1,8 +1,10 @@
-FROM risingstack/alpine:3.4-v6.9.4-4.2.0
+FROM node:latest
 
-ENV PORT 3001
+ENV PORT 5000
 
-EXPOSE 3001 
+EXPOSE 5000 
+
+COPY .env .env
 
 COPY package.json package.json
 

@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+   db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_USER: postgres 
+      POSTGRES_DB: storeapi
+    volumes: 
+      - ./pgdata:/var/lib/postgresql/data 
+    ports: 
+      - '5432:5432'
+   web: 
+    build: '.'
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"

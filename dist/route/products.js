@@ -26,12 +26,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = __importStar(require("express"));
 const authValidation_1 = require("../middleware/authValidation");
 const products_1 = require("../controller/products");
-const s3_1 = require("../utilities/s3");
 const router = express.Router();
 router.route('/product/:id').get(authValidation_1.auth, products_1.product);
 router.route('/products').get(authValidation_1.auth, products_1.allProducts);
-router.route("/singnedurl").get(s3_1.presignedURL);
 router.route('/product/').post(products_1.addProduct);
 router.route('/product/update').post(products_1.updateProduct);
-module.exports = router;
+exports.default = router;
 //# sourceMappingURL=products.js.map

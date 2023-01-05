@@ -13,7 +13,8 @@ exports.updateProduct = exports.addProduct = exports.allProducts = exports.produ
 const products_1 = require("../repo/products");
 const product = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const singleProduct = yield (0, products_1.getSingleProduct)(id);
+    const Id = parseInt(id);
+    const singleProduct = yield (0, products_1.getSingleProduct)(Id);
     res.json(singleProduct);
 });
 exports.product = product;
@@ -23,7 +24,7 @@ const allProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.allProducts = allProducts;
 const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, productName, category, price, productDescription, qty } = req.body;
+    const { userId, productName, category, price, productDescription, qty, imageKey } = req.body;
     if (!productName || !category || !price || !qty) {
         res.json("Add all details");
     }
@@ -37,8 +38,10 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                     category,
                     price,
                     productDescription,
-                    stockQty: qty
+                    stockQty: qty,
+                    image_key: imageKey
                 });
+                console.log(insertProduct);
                 res.json(`Added product ${productName} Successfully! `);
                 console.log(`Added product ${productName} Successfully! `);
             }
@@ -55,12 +58,13 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.addProduct = addProduct;
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { productId, category, price, productDescription, qty } = req.body;
+    const { productId, category, price, productDescription, qty, imageKey } = req.body;
     const updatedItems = {
         category,
         price,
         productDescription,
-        stockQty: qty
+        stockQty: qty,
+        image_key: imageKey
     };
     try {
         const updateProduct = yield (0, products_1.updateProductsItem)(updatedItems, productId);

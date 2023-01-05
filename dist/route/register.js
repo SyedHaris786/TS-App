@@ -27,5 +27,5 @@ const express = __importStar(require("express"));
 const register_1 = require("../controller/register");
 const router = express.Router();
 router.post('/register', register_1.auth);
-module.exports = router;
+exports.default = router;
 //# sourceMappingURL=register.js.map

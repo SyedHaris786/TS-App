@@ -1,8 +1,8 @@
 import { productsPrice, saveOrder } from "../repo/order"
-
+import { Request, Response } from 'express';
 //To calculate the total price and save the final order in DB 
 
-export const order = async (req: any, res: any) => {
+export const order = async (req: Request, res: Response) => {
 
     const { userId, address, products } = req.body;
 

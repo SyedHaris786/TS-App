@@ -8,11 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
-const bcrypt = require('bcrypt');
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const login_1 = require("../repo/login");
-const jwt = require('jsonwebtoken');
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -20,19 +23,20 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.send("Please Enter the valid Credentials");
         }
         const getCreds = yield (0, login_1.creds)(email);
-        if (!getCreds || getCreds.length == 0) {
+        if (!getCreds) {
             res.json("Please enter valid credentials");
         }
         else {
-            const validPassword = getCreds[0].password;
-            bcrypt.compare(password, validPassword, (err, isMatch) => {
+            const validPassword = getCreds.password;
+            bcrypt_1.default.compare(password, validPassword, (err, isMatch) => {
                 if (err) {
                     console.log(err);
                 }
                 console.log(isMatch);
                 if (isMatch) {
-                    const username = getCreds[0].username;
-                    const jawt = jwt.sign({ 'username': username }, process.env.JWT_SECRET, {
+                    const username = getCreds.username;
+                    const SECRET_KEY = process.env.JWT_SECRET || '';
+                    const jawt = jsonwebtoken_1.default.sign({ 'username': username }, SECRET_KEY, {
                         expiresIn: '30d',
                     });
                     res.json(jawt);

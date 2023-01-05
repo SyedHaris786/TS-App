@@ -8,27 +8,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.auth = void 0;
-const bcrypt = require('bcrypt');
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const register_1 = require("../repo/register");
 const login_1 = require("../repo/login");
 const auth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { username, email, password, phone_number } = req.body;
+    const { username, email, password, phone_number } = req.body;
     console.log(req.body);
     try {
         const getCreds = yield (0, login_1.creds)(email);
         if (!username || !email || !password || !phone_number) {
             res.json("Please enter all values");
         }
+        if (getCreds) {
+            res.json("Email already exist");
+        }
         else {
-            let hashedPassword = yield bcrypt.hash(password, 5);
-            password = hashedPassword;
-            console.log(password);
+            const hashedPassword = yield bcrypt_1.default.hash(password, 5);
+            const hash = hashedPassword;
+            console.log(hash);
             const added = yield (0, register_1.register)({
                 username,
                 email,
-                password,
+                password: hash,
                 phone_number
             });
             res.send("User created");

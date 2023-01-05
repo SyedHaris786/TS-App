@@ -1,9 +1,9 @@
-const bcrypt = require('bcrypt');
+import bcrypt from "bcrypt";
 import { creds } from "../repo/login";
-const jwt = require('jsonwebtoken');
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
+import { Request, Response } from 'express';
 
-
-export const login = async (req: any, res: any) => {
+export const login = async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
     try {
@@ -14,11 +14,11 @@ export const login = async (req: any, res: any) => {
         const getCreds = await creds(email);
 
 
-        if (!getCreds || getCreds.length === 0) {
+        if (!getCreds) {
             res.json("Please enter valid credentials")
         }
         else {
-            const validPassword = getCreds[0].password
+            const validPassword = getCreds.password
 
             bcrypt.compare(password, validPassword, (err: any, isMatch: any) => {
                 if (err) {
@@ -27,9 +27,10 @@ export const login = async (req: any, res: any) => {
                 console.log(isMatch);
 
                 if (isMatch) {
-                    const username = getCreds[0].username;
+                    const username = getCreds.username;
 
-                    const jawt = jwt.sign({ 'username': username }, process.env.JWT_SECRET, {
+                    const SECRET_KEY: Secret = process.env.JWT_SECRET || '';
+                    const jawt = jwt.sign({ 'username': username }, SECRET_KEY, {
                         expiresIn: '30d',
                     })
 

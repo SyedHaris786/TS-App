@@ -31,29 +31,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.presignedURL = void 0;
-require("dotenv").config();
-const AWS = require("aws-sdk");
-const uuid = require("uuid").v4;
-const crypto = __importStar(require("crypto"));
-const { promisify } = require("util");
-const randomBytes = promisify(crypto.randomBytes);
+const dotenv = __importStar(require("dotenv"));
+dotenv.config();
+const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const presignedURL = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield AWS.config.update({ region: "us-east-1" });
-        const s3 = new AWS.S3({
+        const s3 = new aws_sdk_1.default.S3({
             signatureVersion: "v4",
         });
-        const rawBytes = yield randomBytes(16);
-        const imageName = rawBytes.toString("hex");
         const params = {
-            Bucket: "ts-shopping-cart",
-            Key: imageName,
-            Expires: 60,
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Expires: 3600,
+            Fields: {
+                key: "test"
+            },
+            Conditions: [
+                ['content-length-range', 0, 100000]
+            ]
         };
-        const response = yield s3.getSignedUrl("putObject", params);
-        res.send(response);
+        s3.createPresignedPost(params, function (err, data) {
+            if (err) {
+                console.log("Error", err);
+                res.status(500).json({
+                    msg: "Error",
+                    Error: "Error creating presigned URL"
+                });
+            }
+            else {
+                res.status(200).json(data);
+            }
+        });
     }
     catch (e) {
         console.log(e);

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.creds = void 0;
 const Users_1 = require("./entities/Users");
 const creds = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const getDetails = yield Users_1.Users.find({
+    return yield Users_1.Users.findOne({
         select: {
             username: true,
             email: true,
@@ -22,7 +22,6 @@ const creds = (email) => __awaiter(void 0, void 0, void 0, function* () {
             email: email
         }
     });
-    return getDetails;
 });
 exports.creds = creds;
 //# sourceMappingURL=login.js.map

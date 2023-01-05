@@ -27,5 +27,5 @@ const express = __importStar(require("express"));
 const order_1 = require("../controller/order");
 const router = express.Router();
 router.post('/order', order_1.order);
-module.exports = router;
+exports.default = router;
 //# sourceMappingURL=order.js.map

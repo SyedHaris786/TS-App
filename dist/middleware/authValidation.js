@@ -8,18 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.auth = void 0;
-const jwt = require('jsonwebtoken');
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer')) {
         res.send('Authentication invalid');
     }
     try {
+        const SECRET_KEY = process.env.JWT_SECRET || '';
         const token = authHeader.split(' ')[1];
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = { userId: payload.userId, name: payload.name };
+        const payload = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+        console.log({ payload });
         next();
     }
     catch (error) {

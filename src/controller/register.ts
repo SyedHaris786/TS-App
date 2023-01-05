@@ -1,10 +1,11 @@
-const bcrypt = require('bcrypt');
+import bcrypt from "bcrypt";
 import { register } from "../repo/register";
 import { creds } from "../repo/login";
+import { Request, Response } from 'express';
 
-export const auth = async (req: any, res: any) => {
+export const auth = async (req: Request, res: Response) => {
 
-  let {
+  const {
     username,
     email,
     password,
@@ -15,32 +16,34 @@ export const auth = async (req: any, res: any) => {
 
   try {
 
-    const getCreds = await creds(email);
     if (!username || !email || !password || !phone_number) {
       res.json("Please enter all values");
 
+    } else {
+
+      const getCreds = await creds(email);
+      if (getCreds) {
+
+        res.json("Email already exist")
+      }
+      else {
+
+        const hashedPassword = await bcrypt.hash(password, 5);
+        const hash = hashedPassword;
+        console.log(hash);
+
+        const added = await register({
+          username,
+          email,
+          password: hash,
+          phone_number
+        })
+
+        res.send("User created")
+
+      }
     }
 
-    if (getCreds[0].email || getCreds.length > 0) {
-
-      res.json("Email already exist")
-    }
-    else {
-
-      const hashedPassword = await bcrypt.hash(password, 5);
-      password = hashedPassword;
-      console.log(password);
-
-      const added = await register({
-        username,
-        email,
-        password,
-        phone_number
-      })
-
-      res.send("User created")
-
-    }
   } catch (err) {
 
     console.log(err);

@@ -9,4 +9,4 @@ const router = express.Router();
 router.post('/register', auth);
 
 
-module.exports = router
+export default router
