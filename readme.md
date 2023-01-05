@@ -52,11 +52,8 @@ npm run lint
 Create .env file as per the the sample env file (.env.sample)
 
 ## To run dockerized image 
-1. Create an image
-```bash 
-docker build -t container-name .
-``` 
-2. Run container
-``` 
-docker run -dp 3000:3001 getting-started
-```
+
+### Docker Compose: 
+To run the project just run the docker compose command and you'll be good to go
+
+``` Docker compose up -d ```
