@@ -22,7 +22,7 @@
     "jsonwebtoken": "^9.0.0",
     "pg": "8.8.0",
     "pg-hstore": "2.3.4",
-    "typeorm": "0.3.10",
+    "typeorm": "0.3.25",
     "uuid": "9.0.0"
   },
   "devDependencies": {
